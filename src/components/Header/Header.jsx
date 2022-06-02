@@ -10,26 +10,26 @@ function Header(props) {
                 <h1>{names}</h1>
                 <div>
                     <NavLink
-                        to="/sectionOne"
+                        to="/profile"
                         activeClassName={styleComponent.actives}
                     >
-                        1
+                        Profile
                     </NavLink>
                 </div>
                 <div>
                     <NavLink
-                        to="/sectionTwo"
+                        to="/messages"
                         activeClassName={styleComponent.actives}
                     >
-                        2
+                        Messages
                     </NavLink>
                 </div>
                 <div>
                     <NavLink
-                        to="/Users"
+                        to="/users"
                         activeClassName={styleComponent.actives}
                     >
-                        3
+                        Users
                     </NavLink>
                 </div>
             </div>
