@@ -1,0 +1,18 @@
+
+
+img {
+    width: 100px;
+    height: 100px;
+}
+
+button {
+    display: block;
+}
+.pagination {
+    display: flex;
+
+    & > .selectedPage {
+        display: block;
+        font-weight: bold;
+    }
+}
