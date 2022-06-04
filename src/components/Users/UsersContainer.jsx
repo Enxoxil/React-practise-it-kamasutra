@@ -11,13 +11,13 @@ import {
 import * as axios from "axios";
 import Users from "./Users.jsx";
 import Preloader from "../common/preloader/Preloader.jsx";
-import { getUsers } from "./../../api/api.js";
+import { usersAPI } from "./../../api/api.js";
 
 class UsersContainers extends React.Component {
     componentDidMount() {
         this.props.toggleIsFetching(true);
 
-        getUsers(this.props.currentPage, this.props.pageSize).then(
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(
             (data) => {
                 this.props.toggleIsFetching(false);
                 this.props.setUsers(data.items);
@@ -29,7 +29,7 @@ class UsersContainers extends React.Component {
     onPageChanged = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
         this.props.toggleIsFetching(true);
-        getUsers(pageNumber, this.props.pageSize).then((data) => {
+        usersAPI.getUsers(pageNumber, this.props.pageSize).then((data) => {
             this.props.toggleIsFetching(false);
             this.props.setUsers(data.items);
         });
