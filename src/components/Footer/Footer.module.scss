@@ -5,3 +5,11 @@
 .footer.active {
     font-size: 20px;
 }
+
+.loginBlock{
+    float: right;
+    & > a {
+        color: black;
+        text-decoration: none;
+    }
+}

@@ -1,5 +1,5 @@
 import Header from "../Header/Header.jsx";
-import Footer from "../Footer/Footer.jsx";
+import FooterContainer from "../Footer/FooterContainer.jsx";
 import ProfileContainer from "../Profile/ProfileContainer.jsx";
 import Messages from "../Messages/Messages.jsx";
 import UsersContainer from "../Users/UsersContainer.jsx";
@@ -11,11 +11,11 @@ function App() {
         <div className="container">
             <Header names="Reactive Header" data="Data" />
             <div className="container">
-                <Route path="/profile" component={ProfileContainer} />
-                <Route path="/messages" component={Messages} />
+                <Route path="/profile/:userId?" render={() => <ProfileContainer/>} />
+                <Route path="/messages" render={() => <Messages/>} />
                 <Route path="/users" render={() => <UsersContainer />} />
             </div>
-            <Footer />
+            <FooterContainer />
         </div>
     );
 }
