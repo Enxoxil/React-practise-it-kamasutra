@@ -1,24 +1,12 @@
 import React from "react";
 import Footer from "./Footer.jsx";
 import { connect } from "react-redux";
-import * as axios from "axios";
-import {setAuthUserData} from "../../redux/auth-reducer.js";
+import { setAuthUserData, getAuthUser } from "../../redux/auth-reducer.js";
 
 class FooterContainer extends React.Component {
     componentDidMount() {
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-                withCredentials: true,
-            })
-            .then((response) => {
-               
-                if (response.data.resultCode === 0) {
-                    let { id, email, login } = response.data.data;
-                    this.props.setAuthUserData(id, email, login);
-                }
-            });
-        }
-        
+        this.props.getAuthUser();
+    }
 
     render() {
         return (
@@ -34,4 +22,4 @@ const mapStateToProps = (state) => ({
     login: state.auth.login,
 });
 
-export default connect(mapStateToProps, { setAuthUserData })(FooterContainer);
+export default connect(mapStateToProps, { setAuthUserData, getAuthUser })(FooterContainer);
