@@ -5,7 +5,7 @@ import Messages from "../Messages/Messages.jsx";
 import UsersContainer from "../Users/UsersContainer.jsx";
 import React from "react";
 import { Route } from "react-router-dom";
-
+import Login from '../../Login/Login.jsx'
 function App() {
     return (
         <div className="container">
@@ -14,6 +14,7 @@ function App() {
                 <Route path="/profile/:userId?" render={() => <ProfileContainer/>} />
                 <Route path="/messages" render={() => <Messages/>} />
                 <Route path="/users" render={() => <UsersContainer />} />
+                <Route path="/login" render={() => <Login />} />
             </div>
             <FooterContainer />
         </div>
