@@ -7,7 +7,7 @@ import {
     toggleIsFollowing,
     getUsers,
 } from "../../redux/users-reducer.js";
-import { Redirect } from "react-router-dom";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect.jsx";
 import Users from "./Users.jsx";
 import Preloader from "../common/preloader/Preloader.jsx";
 
@@ -22,7 +22,6 @@ class UsersContainers extends React.Component {
     };
 
     render() {
-        
         return (
             <>
                 {this.props.isFetching ? <Preloader /> : null}
@@ -42,11 +41,6 @@ class UsersContainers extends React.Component {
     }
 }
 
-const AuthRedirectComponent = (props) => {
-    if (!this.props.isAuth) return <Redirect to={"/login"} />;
-    return <UsersContainers {...props} />
-}
-
 let mapStateToProps = (state) => {
     return {
         users: state.usersPage.users,
@@ -55,14 +49,13 @@ let mapStateToProps = (state) => {
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
         isFollowing: state.usersPage.isFollowing,
-        isAuth: state.auth.isAuth,
     };
 };
 
-export default connect(mapStateToProps, {
+export default withAuthRedirect(connect(mapStateToProps, {
     follow,
     unfollow,
     setCurrentPage,
     toggleIsFollowing,
     getUsers,
-})(AuthRedirectComponent);
+})(UsersContainers));

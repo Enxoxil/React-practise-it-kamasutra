@@ -10,8 +10,6 @@ let Users = (props) => {
         pages.push(i);
     }
 
-    ;
-
     return (
         <div>
             <div className={styles.pagination}>
@@ -50,7 +48,6 @@ let Users = (props) => {
                                     disabled={props.isFollowing.some(
                                         (id) => id === u.id
                                     )}
-                                    
                                     onClick={() => {
                                         props.unfollow(u.id);
                                     }}
