@@ -52,7 +52,7 @@ const usersReducer = (state = initialState, action) => {
                 ...state,
                 isFollowing: action.isFollowing
                     ? [...state.isFollowing, action.userId]
-                    : state.isFollowing.filter((id) => id != action.userId),
+                    : state.isFollowing.filter((id) => id !== action.userId),
             };
         default:
             return state;
@@ -92,8 +92,8 @@ export const getUsers = (currentPage, pageSize) => {
 export const unfollow = (userId) => {
     return (dispatch) => {
         dispatch(toggleIsFollowing(true, userId));
-        usersAPI.unfollow(userId).then((response) => {
-            if (response.data.resultCode === 0) {
+        usersAPI.unfollow(userId).then((data) => {
+            if (data.resultCode === 0) {
                 dispatch(unfollowSuccess(userId));
             }
             dispatch(toggleIsFollowing(false, userId));
@@ -103,12 +103,12 @@ export const unfollow = (userId) => {
 export const follow = (userId) => {
     return (dispatch) => {
         dispatch(toggleIsFollowing(true, userId));
-        usersAPI.follow(userId).then((response) => {
-            if (response.data.resultCode === 0) {
+        usersAPI.follow(userId).then((data) => {
+            if (data.resultCode === 0) {
                 dispatch(followSuccess(userId));
             }
             dispatch(toggleIsFollowing(false, userId));
         });
     };
-};
+}
 export default usersReducer;

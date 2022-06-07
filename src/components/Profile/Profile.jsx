@@ -1,5 +1,5 @@
 import React from "react";
-
+import ProfileStatus from './ProfileStatus.jsx';
 import Preloader from "../common/preloader/Preloader.jsx";
 
 const Profile = (props) => {
@@ -11,6 +11,7 @@ const Profile = (props) => {
     return (
         <>
             <img src={props.profile.photos.large} />
+            <ProfileStatus status={'Hello, it`s first status.'}/>
             <div>Обо мне: {props.profile.aboutMe}</div>
         </>
     );
