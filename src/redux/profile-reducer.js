@@ -18,7 +18,7 @@ const profileReducer = (state = initialState, action) => {
             return state;
     }
 };
-export const setUserStatus = (status) => ({ type: SET_STATUS, status });
+export const setStatus = (status) => ({ type: SET_STATUS, status });
 export const setUserProfile = (profile) => ({
     type: SET_USER_PROFILE,
     profile,
@@ -27,7 +27,7 @@ export const setUserProfile = (profile) => ({
 export const getStatus = (userId) => {
     return (dispatch) => {
         profileAPI.getStatus(userId).then((data) => {
-            dispatch(setUserStatus(data));
+            dispatch(setStatus(data));
         });
     };
 };
@@ -35,7 +35,7 @@ export const updateStatus = (status) => {
     return (dispatch) => {
         profileAPI.updateStatus(status).then((data) => {
             if (data.resultCode === 0) {
-                dispatch(setUserStatus(data));
+                dispatch(setStatus(status));
             }
         });
     };
