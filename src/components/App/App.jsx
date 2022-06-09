@@ -11,10 +11,11 @@ function App() {
         <div className="container">
             <Header names="Reactive Header" data="Data" />
             <div className="container">
+                <Route path="/login" render={() => <Login />} />
                 <Route path="/profile/:userId?" render={() => <ProfileContainer/>} />
                 <Route path="/messages" render={() => <Messages/>} />
                 <Route path="/users" render={() => <UsersContainer />} />
-                <Route path="/login" render={() => <Login />} />
+                
             </div>
             <FooterContainer />
         </div>
