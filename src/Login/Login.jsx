@@ -2,7 +2,7 @@ import React from "react";
 import { reduxForm, Field } from "redux-form";
 const Login = (props) => {
     const onSubmit = (formData) => {
-        console.log(formData);
+        
     }
     return (
         <>

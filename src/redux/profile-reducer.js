@@ -1,9 +1,13 @@
 import { usersAPI, profileAPI } from "../api/api.js";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_STATUS = "SET_STATUS";
+const ADD_NEW_POST = "ADD_NEW_POST";
 let initialState = {
     profile: null,
     status: "",
+    posts: [
+        {id: 1, message: 'First post', likesCount: 12},
+    ]
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -14,6 +18,14 @@ const profileReducer = (state = initialState, action) => {
         case SET_STATUS: {
             return { ...state, status: action.status };
         }
+        case ADD_NEW_POST: {
+            let newPost = {
+                id: 5,
+                message: action.newPostText,
+                likesCount: 0,
+            };
+            return { ...state, posts: [...state.posts, newPost]}
+        }
         default:
             return state;
     }
@@ -23,6 +35,7 @@ export const setUserProfile = (profile) => ({
     type: SET_USER_PROFILE,
     profile,
 });
+export const addPost = (newPostText) => ({ type: ADD_NEW_POST, newPostText });
 
 export const getStatus = (userId) => {
     return (dispatch) => {
