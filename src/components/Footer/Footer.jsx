@@ -10,7 +10,7 @@ function Footer(props) {
                 <h1>React footer</h1>
             </div>
             <div className={`${styleComponent.loginBlock}`}>
-                { props.isAuth ? props.login
+                { props.isAuth ? <NavLink to = {'/login'}>{props.login}</NavLink>
                 : <NavLink to = {'/login'}>Log-in</NavLink>}
             </div>
         </>
