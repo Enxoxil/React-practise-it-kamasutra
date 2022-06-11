@@ -3,7 +3,7 @@ import ProfileStatus from "./ProfileStatus.jsx";
 import Preloader from "../common/preloader/Preloader.jsx";
 import { reduxForm, Field } from "redux-form";
 import {
-    requiredField,
+    required,
     maxLengthCreator,
 } from "../../utils/validators/validator.js";
 import { Textarea } from "../common/FormsControls/FormsControls.jsx";
@@ -43,7 +43,7 @@ const AddNewPostForm = (props) => {
                     <Field
                         component={Textarea}
                         name={"newPostText"}
-                        validate={[requiredField, maxLength5]}
+                        validate={[required, maxLength5]}
                         placeholder="Post message"
                     />
                 </div>
