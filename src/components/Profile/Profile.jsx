@@ -67,4 +67,7 @@ const Post = (props) => {
 const AddNewPostFormRedux = reduxForm({ form: "ProfileAddNewPostForm" })(
     AddNewPostForm
 );
+
+
+
 export default Profile;

@@ -1,7 +1,7 @@
 import React from "react";
 import Footer from "./Footer.jsx";
 import { connect } from "react-redux";
-import {getAuthUser } from "../../redux/auth-reducer.js";
+import {getAuthUser, logout } from "../../redux/auth-reducer.js";
 
 class FooterContainer extends React.Component {
     componentDidMount() {
@@ -22,4 +22,4 @@ const mapStateToProps = (state) => ({
     login: state.auth.login,
 });
 
-export default connect(mapStateToProps, { getAuthUser })(FooterContainer);
+export default connect(mapStateToProps, { getAuthUser, logout })(FooterContainer);
