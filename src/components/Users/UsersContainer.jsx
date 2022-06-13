@@ -7,10 +7,17 @@ import {
     toggleIsFollowing,
     getUsers,
 } from "../../redux/users-reducer.js";
-import { withAuthRedirect } from "../../hoc/withAuthRedirect.jsx";
+// import { withAuthRedirect } from "../../hoc/withAuthRedirect.jsx";
 import Users from "./Users.jsx";
 import Preloader from "../common/preloader/Preloader.jsx";
-
+import {
+    getUsersSelector,
+    getPageSizeSelector,
+    getUsersCountSelector,
+    getCurrentPageSelector,
+    getIsFetchingSelector,
+    getIsFollowingSelector,
+} from "../../redux/users-selectors.js";
 class UsersContainers extends React.Component {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize);
@@ -41,21 +48,32 @@ class UsersContainers extends React.Component {
     }
 }
 
+// let mapStateToProps = (state) => {
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         isFollowing: state.usersPage.isFollowing,
+//     };
+// };
+
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        isFollowing: state.usersPage.isFollowing,
+        users: getUsersSelector(state),
+        pageSize: getPageSizeSelector(state),
+        totalUsersCount: getUsersCountSelector(state),
+        currentPage: getCurrentPageSelector(state),
+        isFetching: getIsFetchingSelector(state),
+        isFollowing: getIsFollowingSelector(state),
     };
 };
 
-export default withAuthRedirect(connect(mapStateToProps, {
+export default connect(mapStateToProps, {
     follow,
     unfollow,
     setCurrentPage,
     toggleIsFollowing,
     getUsers,
-})(UsersContainers));
+})(UsersContainers);

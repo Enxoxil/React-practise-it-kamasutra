@@ -6,15 +6,21 @@ import UsersContainer from "../Users/UsersContainer.jsx";
 import React from "react";
 import { Route } from "react-router-dom";
 import Login from "../../Login/Login.jsx";
-import {getUserProfile} from '../../redux/profile-reducer.js'
-import {connect} from 'react-redux';
+// import {getAuthUser} from '../../redux/auth-reducer.js'
+import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { compose } from "redux";
+import { initializeApp } from "../../redux/app-reducer.js";
+import Preloader from "../common/preloader/Preloader.jsx";
 class App extends React.Component {
     componentDidMount() {
-        // this.props.getUserProfile();
+        this.props.initializeApp();
     }
     render() {
+        if (!this.props.initialized) {
+            return <Preloader />;
+        }
+
         return (
             <div className="container">
                 <Header names="Reactive Header" data="Data" />
@@ -32,7 +38,7 @@ class App extends React.Component {
         );
     }
 }
-
-export default compose(
-    withRouter,
-    connect(null, {getUserProfile}))(App);
+const mapStateToProps = (state) => ({
+    initialized: state.app.initialized,
+});
+export default compose(withRouter, connect(mapStateToProps, { initializeApp }))(App);

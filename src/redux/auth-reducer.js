@@ -1,5 +1,5 @@
 import { authAPI } from "../api/api.js";
-import { stopSubmit } from 'redux-form';
+import { stopSubmit } from "redux-form";
 const SET_USER_DATA = "SET_USER_DATA";
 
 let initialState = {
@@ -26,24 +26,26 @@ export const setAuthUserData = (userId, email, login, isAuth) => ({
     type: SET_USER_DATA,
     payload: { userId, email, login, isAuth },
 });
-export const getAuthUser = () => {
-    return (dispatch) => {
-        authAPI.getMeAuth().then((data) => {
-            if (data.resultCode === 0) {
-                let { id, email, login } = data.data;
-                dispatch(setAuthUserData(id, email, login, true));
-            }
-        });
-    };
+// следующая функция возвращает промис
+export const getAuthUser = () => (dispatch) => {
+    return authAPI.getMeAuth()
+    .then((data) => {
+        if (data.resultCode === 0) {
+            let { id, email, login } = data.data;
+            dispatch(setAuthUserData(id, email, login, true));
+        }
+    });
 };
+
 export const login = (email, password, rememberMe) => {
     return (dispatch) => {
         authAPI.login(email, password, rememberMe).then((data) => {
             if (data.resultCode === 0) {
                 dispatch(getAuthUser());
             } else {
-                let message = data.messages.length > 0 ? data.messages[0] : 'Some error';
-                dispatch(stopSubmit('login', {_error: message}));
+                let message =
+                    data.messages.length > 0 ? data.messages[0] : "Some error";
+                dispatch(stopSubmit("login", { _error: message }));
             }
         });
     };
