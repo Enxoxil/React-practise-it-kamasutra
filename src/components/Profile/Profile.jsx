@@ -1,5 +1,5 @@
 import React from "react";
-import ProfileStatus from "./ProfileStatus.jsx";
+import ProfileStatusWithHooks from "./ProfileStatusWithHooks.jsx";
 import Preloader from "../common/preloader/Preloader.jsx";
 import { reduxForm, Field } from "redux-form";
 import {
@@ -23,7 +23,7 @@ const Profile = (props) => {
     return (
         <>
             <img src={props.profile.photos.large} />
-            <ProfileStatus
+            <ProfileStatusWithHooks
                 status={props.status}
                 updateStatus={props.updateStatus}
             />
