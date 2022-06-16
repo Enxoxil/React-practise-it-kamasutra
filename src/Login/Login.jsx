@@ -5,12 +5,13 @@ import { required } from "../utils/validators/validator.js";
 import { connect } from "react-redux";
 import { login } from "../redux/auth-reducer.js";
 import { Redirect } from "react-router-dom";
-import  style  from '../components/common/FormsControls/FormsControls.module.scss'
-const Login = (props) => {
+import style from "../components/common/FormsControls/FormsControls.module.scss";
+import { createField } from "../components/common/FormsControls/FormsControls.jsx";
+const Login = ({ isAuth, login }) => {
     const onSubmit = (formData) => {
-        props.login(formData.email, formData.password, formData.rememberMe);
+        login(formData.email, formData.password, formData.rememberMe);
     };
-    if (props.isAuth) {
+    if (isAuth) {
         return <Redirect to={"/profile"} />;
     }
     return (
@@ -21,37 +22,32 @@ const Login = (props) => {
     );
 };
 
-const LoginForm = (props) => {
+const LoginForm = ({ handleSubmit, error }) => {
     return (
         <>
-            <form onSubmit={props.handleSubmit}>
-                <div>
-                    <Field
+            <form onSubmit={handleSubmit}>
+                {
+                    createField("Email", "email", [required], Input)
+                    /* <Field
                         component={Input}
                         placeholder="Email"
                         name="email"
                         validate={[required]}
-                    />
-                </div>
-                <div>
-                    <Field
-                        component={Input}
-                        placeholder="Password"
-                        name="password"
-                        validate={[required]}
-                    />
-                </div>
-                <div>
-                    <Field
-                        component={Input}
-                        type="checkbox"
-                        name="rememberMe"
-                    />{" "}
-                    Remember Me
-                </div>
-                {props.error && <div className={style.formSummaryError}>
-                    {props.error}
-                </div>}
+                    /> */
+                }
+                {createField("Password", "password", [required], Input, {
+                    type: "password",
+                })}
+                {createField(
+                    null,
+                    "rememberMe",
+                    [],
+                    Input,
+                    { type: "checkbox" },
+                    "Remember Me"
+                )}
+
+                {error && <div className={style.formSummaryError}>{error}</div>}
                 <button>Log-in</button>
             </form>
         </>

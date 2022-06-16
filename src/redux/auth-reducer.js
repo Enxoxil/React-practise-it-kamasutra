@@ -22,20 +22,21 @@ const authReducer = (state = initialState, action) => {
     }
 };
 
+export const getAuthUser = () => async (dispatch) => {
+    const data = await authAPI.getMeAuth();
+
+    if (data.resultCode === 0) {
+        let { id, email, login } = data.data;
+        dispatch(setAuthUserData(id, email, login, true));
+    }
+};
+
 export const setAuthUserData = (userId, email, login, isAuth) => ({
     type: SET_USER_DATA,
     payload: { userId, email, login, isAuth },
 });
 // следующая функция возвращает промис
-export const getAuthUser = () => (dispatch) => {
-    return authAPI.getMeAuth()
-    .then((data) => {
-        if (data.resultCode === 0) {
-            let { id, email, login } = data.data;
-            dispatch(setAuthUserData(id, email, login, true));
-        }
-    });
-};
+
 
 export const login = (email, password, rememberMe) => {
     return (dispatch) => {
@@ -60,3 +61,4 @@ export const logout = () => {
     };
 };
 export default authReducer;
+    
