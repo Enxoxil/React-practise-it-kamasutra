@@ -31,27 +31,11 @@ class App extends React.Component {
                     <Route path="/login" render={() => <Login />} />
                     <Route
                         path="/profile/:userId?"
-                        render={() => {
-                            return (
-                                <React.Suspense
-                                    fallback={<div>Loading...</div>}
-                                >
-                                    <ProfileContainer />
-                                </React.Suspense>
-                            );
-                        }}
+                        render={withSuspense(ProfileContainer)}
                     />
                     <Route
                         path="/messages"
-                        render={() => {
-                            return (
-                                <React.Suspense
-                                    fallback={<div>Loading...</div>}
-                                >
-                                    <Messages />
-                                </React.Suspense>
-                            );
-                        }}
+                        render={withSuspense(Messages)}
                     />
                     <Route path="/users" render={() => <UsersContainer />} />
                 </div>
