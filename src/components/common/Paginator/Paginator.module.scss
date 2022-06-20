@@ -1,0 +1,13 @@
+
+.pagination {
+    display: flex;
+
+    & > .selectedPage {
+        display: block;
+        font-weight: bold;
+    }
+}
+
+button {
+    display: block;
+}

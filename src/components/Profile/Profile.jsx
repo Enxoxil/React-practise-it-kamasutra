@@ -27,6 +27,7 @@ const Profile = (props) => {
                 status={props.status}
                 updateStatus={props.updateStatus}
             />
+            
             <div>Обо мне: {props.profile.aboutMe}</div>
             <h4>My posts</h4>
             <AddNewPostFormRedux onSubmit={onAddPost} />

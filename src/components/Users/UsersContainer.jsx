@@ -6,17 +6,18 @@ import {
     setCurrentPage,
     toggleIsFollowing,
     getUsers,
+    setPortionSize,
 } from "../../redux/users-reducer.js";
-// import { withAuthRedirect } from "../../hoc/withAuthRedirect.jsx";
 import Users from "./Users.jsx";
 import Preloader from "../common/preloader/Preloader.jsx";
 import {
     getUsersSelector,
-    getPageSizeSelector,
+    getPageSizeSelector, 
     getUsersCountSelector,
     getCurrentPageSelector,
     getIsFetchingSelector,
     getIsFollowingSelector,
+    getPortionSizeSelector,
 } from "../../redux/users-selectors.js";
 class UsersContainers extends React.Component {
     componentDidMount() {
@@ -42,6 +43,7 @@ class UsersContainers extends React.Component {
                     unfollow={this.props.unfollow}
                     isFollowing={this.props.isFollowing}
                     isAuth={this.props.isAuth}
+                    portionSize={this.props.portionSize}
                 />
             </>
         );
@@ -67,6 +69,7 @@ let mapStateToProps = (state) => {
         currentPage: getCurrentPageSelector(state),
         isFetching: getIsFetchingSelector(state),
         isFollowing: getIsFollowingSelector(state),
+        portionSize: getPortionSizeSelector(state),
     };
 };
 
@@ -76,4 +79,5 @@ export default connect(mapStateToProps, {
     setCurrentPage,
     toggleIsFollowing,
     getUsers,
+    setPortionSize,
 })(UsersContainers);

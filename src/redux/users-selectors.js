@@ -24,6 +24,11 @@ export const getIsFetchingSelector = (state) => {
 export const getIsFollowingSelector = (state) => {
     return state.usersPage.isFollowing;
 };
+
 export const superSelector = createSelector(getUsersSelector, getIsFetchingSelector, (users, isFetching) => {
     return users.filter((u) => true);
 });
+
+export const getPortionSizeSelector = (state) => {
+    return state.usersPage.portionSize;
+};

@@ -26,15 +26,7 @@ const LoginForm = ({ handleSubmit, error }) => {
     return (
         <>
             <form onSubmit={handleSubmit}>
-                {
-                    createField("Email", "email", [required], Input)
-                    /* <Field
-                        component={Input}
-                        placeholder="Email"
-                        name="email"
-                        validate={[required]}
-                    /> */
-                }
+                {createField("Email", "email", [required], Input)}
                 {createField("Password", "password", [required], Input, {
                     type: "password",
                 })}

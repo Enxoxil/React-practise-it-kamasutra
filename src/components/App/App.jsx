@@ -1,17 +1,19 @@
 import Header from "../Header/Header.jsx";
 import FooterContainer from "../Footer/FooterContainer.jsx";
-import ProfileContainer from "../Profile/ProfileContainer.jsx";
-import Messages from "../Messages/Messages.jsx";
 import UsersContainer from "../Users/UsersContainer.jsx";
 import React from "react";
 import { Route } from "react-router-dom";
 import Login from "../../Login/Login.jsx";
-// import {getAuthUser} from '../../redux/auth-reducer.js'
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { compose } from "redux";
 import { initializeApp } from "../../redux/app-reducer.js";
 import Preloader from "../common/preloader/Preloader.jsx";
+
+const ProfileContainer = React.lazy(() =>
+    import("../Profile/ProfileContainer.jsx")
+);
+const Messages = React.lazy(() => import("../Messages/Messages.jsx"));
 
 class App extends React.Component {
     componentDidMount() {
@@ -29,9 +31,28 @@ class App extends React.Component {
                     <Route path="/login" render={() => <Login />} />
                     <Route
                         path="/profile/:userId?"
-                        render={() => <ProfileContainer />}
+                        render={() => {
+                            return (
+                                <React.Suspense
+                                    fallback={<div>Loading...</div>}
+                                >
+                                    <ProfileContainer />
+                                </React.Suspense>
+                            );
+                        }}
                     />
-                    <Route path="/messages" render={() => <Messages />} />
+                    <Route
+                        path="/messages"
+                        render={() => {
+                            return (
+                                <React.Suspense
+                                    fallback={<div>Loading...</div>}
+                                >
+                                    <Messages />
+                                </React.Suspense>
+                            );
+                        }}
+                    />
                     <Route path="/users" render={() => <UsersContainer />} />
                 </div>
                 <FooterContainer />
@@ -42,4 +63,7 @@ class App extends React.Component {
 const mapStateToProps = (state) => ({
     initialized: state.app.initialized,
 });
-export default compose(withRouter, connect(mapStateToProps, { initializeApp }))(App);
+export default compose(
+    withRouter,
+    connect(mapStateToProps, { initializeApp })
+)(App);
