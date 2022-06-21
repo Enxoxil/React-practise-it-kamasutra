@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkinit_react_project=self.webpackChunkinit_react_project||[]).push([[234],{1234:function(e,t,n){n.r(t);n(2791);var r=n(184);t.default=function(){return(0,r.jsx)(r.Fragment,{children:(0,r.jsx)("h1",{children:"\u0412\u043e \u0432\u0442\u043e\u0440\u044b\u0445: \u043d\u0435 \u0437\u0432\u043e\u043d\u0438 \u0441\u044e\u0434\u0430 \u0431\u043e\u043b\u044c\u0448\u0435"})})}}}]);
+//# sourceMappingURL=234.b956bda7.chunk.js.map
