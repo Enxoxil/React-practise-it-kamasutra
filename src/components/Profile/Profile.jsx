@@ -8,7 +8,7 @@ import {
 } from "../../utils/validators/validator.js";
 import { Textarea } from "../common/FormsControls/FormsControls.jsx";
 
-let maxLength5 = maxLengthCreator(5);
+let maxLength100 = maxLengthCreator(100);
 
 const Profile = (props) => {
     if (!props.profile) {
@@ -44,7 +44,7 @@ const AddNewPostForm = (props) => {
                     <Field
                         component={Textarea}
                         name={"newPostText"}
-                        validate={[required, maxLength5]}
+                        validate={[required, maxLength100]}
                         placeholder="Post message"
                     />
                 </div>

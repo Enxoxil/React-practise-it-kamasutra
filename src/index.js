@@ -6,8 +6,8 @@ import { Provider } from "react-redux";
 import store from "./redux/redux-store";
 
 ReactDOM.render(
-    <HashRouter basename={process.env.PUBLIC_URL}>
-        {/* basename={process.env.PUBLIC_URL} -  УРЛ из окружения, HashRouter для работы с УРЛ с Хистори АПИ только он работает с гитхаб страницей*/}
+    <HashRouter /*basename={process.env.PUBLIC_URL}*/>
+        {/* basename={process.env.PUBLIC_URL} -  УРЛ из окружения, HashRouter для работы с УРЛ с Хистори АПИ только он работает с гитхаб страницей и не нужен basename*/}
         <Provider store={store}>
             <App />
         </Provider>
