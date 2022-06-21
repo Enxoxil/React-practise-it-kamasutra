@@ -9,7 +9,7 @@ import { withRouter } from "react-router-dom";
 import { compose } from "redux";
 import { initializeApp } from "../../redux/app-reducer.js";
 import Preloader from "../common/preloader/Preloader.jsx";
-
+import {withSuspense} from '../../hoc/withSuspense.jsx';
 const ProfileContainer = React.lazy(() =>
     import("../Profile/ProfileContainer.jsx")
 );
