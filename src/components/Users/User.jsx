@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import userPhoto from "../../assets/img/user.png";
-
+import style from "./users.module.scss";
 let User = ({ user, isFollowing, unfollow, follow }) => {
     return (
         <div>
@@ -12,7 +12,7 @@ let User = ({ user, isFollowing, unfollow, follow }) => {
                             user.photos.small != null
                                 ? user.photos.small
                                 : userPhoto
-                        }
+                        } className={style.userImg}
                     />
                 </NavLink>
             </span>

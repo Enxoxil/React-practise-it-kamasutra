@@ -7,7 +7,8 @@ import {
     maxLengthCreator,
 } from "../../utils/validators/validator.js";
 import { Textarea } from "../common/FormsControls/FormsControls.jsx";
-
+import userPhoto from "../../assets/img/user.png";
+import style from "./Profile.module.scss";
 let maxLength100 = maxLengthCreator(100);
 
 const Profile = (props) => {
@@ -20,19 +21,73 @@ const Profile = (props) => {
     let postsElements = props.posts.map((p) => (
         <Post message={p.message} likesCount={p.likesCount} />
     ));
+    const onMainPhotoSelected = (e) => {
+        if (e.target.files.length) {
+            props.savePhoto(e.target.files[0]);
+        }
+    };
     return (
         <>
-            <img src={props.profile.photos.large} />
+            <div>
+                <img
+                    src={props.profile.photos.large || userPhoto}
+                    className={style.mainPhoto}
+                />
+                {props.isOwner && (
+                    <input type={"file"} onChange={onMainPhotoSelected} />
+                )}
+                <p>
+                    Мой ID:{" "}
+                    {props.match.params.userId || props.authorizedUserId}
+                </p>
+                <div>
+                    <b>ФИО </b>: {props.profile.fullName}
+                </div>
+                <div>
+                    <b>Ищу работу?</b> :{" "}
+                    {props.profile.lookingForAJob ? "Yes" : "No"}
+                </div>
+                {props.profile.lookingForAJob && (
+                    <div>
+                        <b>Мои скилы</b> :{" "}
+                        {props.profile.lookingForAJobDescription}
+                    </div>
+                )}
+                <div>
+                    <b>О себе</b> : {props.profile.aboutMe}
+                </div>
+
+                <div>
+                    <b>Контакты </b>:{" "}
+                    {Object.keys(props.profile.contacts).map((key) => {
+                        return (
+                            <Contacts
+                                key={key}
+                                contactTitle={key}
+                                contactValue={props.profile.contacts[key]}
+                            />
+                        );
+                    })}
+                </div>
+            </div>
+
             <ProfileStatusWithHooks
                 status={props.status}
                 updateStatus={props.updateStatus}
             />
-            
-            <div>Обо мне: {props.profile.aboutMe}</div>
+
             <h4>My posts</h4>
             <AddNewPostFormRedux onSubmit={onAddPost} />
             <div>{postsElements}</div>
         </>
+    );
+};
+
+const Contacts = ({ contactTitle, contactValue }) => {
+    return (
+        <div>
+            <b>{contactTitle}</b> : {contactValue} .
+        </div>
     );
 };
 
@@ -68,7 +123,5 @@ const Post = (props) => {
 const AddNewPostFormRedux = reduxForm({ form: "ProfileAddNewPostForm" })(
     AddNewPostForm
 );
-
-
 
 export default Profile;
