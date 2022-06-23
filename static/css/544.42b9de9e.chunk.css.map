@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/544.42b9de9e.chunk.css","mappings":"AAAA,0BACI,kBACA","sources":["components/Profile/Profile.module.scss"],"sourcesContent":[".mainPhoto {\r\n    border-radius: 50%;\r\n    max-width: 100px;\r\n}"],"names":[],"sourceRoot":""}
