@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useState} from "react";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks.jsx";
 import Preloader from "../common/preloader/Preloader.jsx";
+import ProfileDataForm from './ProfileDataForm.jsx';
 import { reduxForm, Field } from "redux-form";
 import {
     required,
@@ -9,9 +10,12 @@ import {
 import { Textarea } from "../common/FormsControls/FormsControls.jsx";
 import userPhoto from "../../assets/img/user.png";
 import style from "./Profile.module.scss";
+import { Contacts } from "./Contacts";
 let maxLength100 = maxLengthCreator(100);
 
 const Profile = (props) => {
+    const [editMode, setEditMode] = useState(false);
+
     if (!props.profile) {
         return <Preloader />;
     }
@@ -28,48 +32,19 @@ const Profile = (props) => {
     };
     return (
         <>
-            <div>
-                <img
-                    src={props.profile.photos.large || userPhoto}
-                    className={style.mainPhoto}
-                />
-                {props.isOwner && (
-                    <input type={"file"} onChange={onMainPhotoSelected} />
-                )}
-                <p>
-                    Мой ID:{" "}
-                    {props.match.params.userId || props.authorizedUserId}
-                </p>
-                <div>
-                    <b>ФИО </b>: {props.profile.fullName}
-                </div>
-                <div>
-                    <b>Ищу работу?</b> :{" "}
-                    {props.profile.lookingForAJob ? "Yes" : "No"}
-                </div>
-                {props.profile.lookingForAJob && (
-                    <div>
-                        <b>Мои скилы</b> :{" "}
-                        {props.profile.lookingForAJobDescription}
-                    </div>
-                )}
-                <div>
-                    <b>О себе</b> : {props.profile.aboutMe}
-                </div>
-
-                <div>
-                    <b>Контакты </b>:{" "}
-                    {Object.keys(props.profile.contacts).map((key) => {
-                        return (
-                            <Contacts
-                                key={key}
-                                contactTitle={key}
-                                contactValue={props.profile.contacts[key]}
-                            />
-                        );
-                    })}
-                </div>
-            </div>
+            <img
+                src={props.profile.photos.large || userPhoto}
+                className={style.mainPhoto}
+            />
+            <p>Мой ID: {props.match.params.userId || props.authorizedUserId}</p>
+            {props.isOwner && (
+                <input type={"file"} onChange={onMainPhotoSelected} />
+            )}
+            {editMode ? (
+                <ProfileDataForm profile={props.profile}/>
+            ) : (
+                <ProfileData profile={props.profile} isOwner={props.isOwner} goToEditMode={ () => {setEditMode(true)}}/>
+            )}
 
             <ProfileStatusWithHooks
                 status={props.status}
@@ -83,13 +58,42 @@ const Profile = (props) => {
     );
 };
 
-const Contacts = ({ contactTitle, contactValue }) => {
+const ProfileData = ({ profile, goToEditMode, isOwner}) => {
     return (
         <div>
-            <b>{contactTitle}</b> : {contactValue} .
+            {isOwner && <div><button onClick={goToEditMode}>Edit mode</button></div>}
+            <div>
+                <b>ФИО </b>: {profile.fullName}
+            </div>
+            <div>
+                <b>Ищу работу?</b> : {profile.lookingForAJob ? "Yes" : "No"}
+            </div>
+            {profile.lookingForAJob && (
+                <div>
+                    <b>Мои скилы</b> : {profile.lookingForAJobDescription}
+                </div>
+            )}
+            <div>
+                <b>О себе</b> : {profile.aboutMe}
+            </div>
+
+            <div>
+                <b>Контакты </b>:{" "}
+                {Object.keys(profile.contacts).map((key) => {
+                    return (
+                        <Contacts
+                            key={key}
+                            contactTitle={key}
+                            contactValue={profile.contacts[key]}
+                        />
+                    );
+                })}
+            </div>
         </div>
     );
 };
+
+
 
 const AddNewPostForm = (props) => {
     return (
