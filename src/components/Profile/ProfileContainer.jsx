@@ -6,6 +6,7 @@ import {
     updateStatus,
     addPost,
     savePhoto,
+    saveProfile
 } from "../../redux/profile-reducer.js";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -66,6 +67,7 @@ export default compose(
         updateStatus,
         addPost,
         savePhoto,
+        saveProfile,
     }),
     withRouter
     // withAuthRedirect

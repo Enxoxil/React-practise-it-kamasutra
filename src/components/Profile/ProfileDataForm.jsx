@@ -5,15 +5,15 @@ import {
     Textarea,
 } from "../common/FormsControls/FormsControls";
 import { Contacts } from "./Contacts";
+import style from "../common/FormsControls/FormsControls.module.scss";
 import { reduxForm } from "redux-form";
-const ProfileDataForm = ({ profile, goToEditMode, isOwner }) => {
+const ProfileDataForm = ({ profile, handleSubmit, error }) => {
     return (
-        <form>
-            {isOwner && (
-                <div>
-                    <button onClick={() => {}}>Save</button>
-                </div>
-            )}
+        <form onSubmit={handleSubmit}>
+            <div>
+                <button>Save</button>
+            </div>
+            {error && <div className={style.formSummaryError}>{error}</div>}
             <div>
                 <b>ФИО </b>: {createField("ФИО", "fullName", [], Input)}
             </div>
@@ -35,23 +35,19 @@ const ProfileDataForm = ({ profile, goToEditMode, isOwner }) => {
             </div>
             <div>
                 <b>О себе</b> : {profile.aboutMe}
-                {createField(
-                    "О себе",
-                    "aboutMe",
-                    [],
-                    Textarea
-                )}
+                {createField("О себе", "aboutMe", [], Textarea)}
             </div>
 
             <div>
-                <b>Контакты </b>:{" "}
+                <b>Контакты</b>:{" "}
                 {Object.keys(profile.contacts).map((key) => {
                     return (
-                        <Contacts
-                            key={key}
-                            contactTitle={key}
-                            contactValue={profile.contacts[key]}
-                        />
+                        <div key={key} className="contact">
+                            <b>
+                                {key} :{" "}
+                                {createField(key, "contacts." + key, [], Input)}
+                            </b>
+                        </div>
                     );
                 })}
             </div>

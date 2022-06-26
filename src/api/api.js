@@ -50,17 +50,27 @@ export const profileAPI = {
             },
         });
     },
+    saveProfile(profile) {
+        return instance.put(`profile`, profile);
+    },
 };
 export const authAPI = {
     getMeAuth() {
         return instance.get(`auth/me`).then((response) => response.data);
     },
-    login(email, password, rememberMe = false) {
+    login(email, password, rememberMe = false, captcha = null) {
         return instance
-            .post(`auth/login`, { email, password, rememberMe })
+            .post(`auth/login`, { email, password, rememberMe, captcha })
             .then((response) => response.data);
     },
     logout() {
         return instance.delete(`auth/login`).then((response) => response.data);
     },
+
 };
+
+export const securityAPI = {
+    getCaptchaUrl() {
+        return instance.get(`security/get-captcha-url`);
+    },
+}

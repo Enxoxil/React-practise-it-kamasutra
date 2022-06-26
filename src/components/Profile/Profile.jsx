@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks.jsx";
 import Preloader from "../common/preloader/Preloader.jsx";
-import ProfileDataForm from './ProfileDataForm.jsx';
+import ProfileDataForm from "./ProfileDataForm.jsx";
 import { reduxForm, Field } from "redux-form";
 import {
     required,
@@ -23,12 +23,17 @@ const Profile = (props) => {
         props.addPost(values.newPostText);
     };
     let postsElements = props.posts.map((p) => (
-        <Post message={p.message} likesCount={p.likesCount} />
+        <Post key={p.id} message={p.message} likesCount={p.likesCount} />
     ));
     const onMainPhotoSelected = (e) => {
         if (e.target.files.length) {
             props.savePhoto(e.target.files[0]);
         }
+    };
+    const onSubmit = (formData) => {
+        props.saveProfile(formData).then(() => {
+            setEditMode(false)
+        });
     };
     return (
         <>
@@ -41,9 +46,19 @@ const Profile = (props) => {
                 <input type={"file"} onChange={onMainPhotoSelected} />
             )}
             {editMode ? (
-                <ProfileDataForm profile={props.profile}/>
+                <ProfileDataForm
+                    initialValues={props.profile}
+                    profile={props.profile}
+                    onSubmit={onSubmit}
+                />
             ) : (
-                <ProfileData profile={props.profile} isOwner={props.isOwner} goToEditMode={ () => {setEditMode(true)}}/>
+                <ProfileData
+                    profile={props.profile}
+                    isOwner={props.isOwner}
+                    goToEditMode={() => {
+                        setEditMode(true);
+                    }}
+                />
             )}
 
             <ProfileStatusWithHooks
@@ -58,10 +73,14 @@ const Profile = (props) => {
     );
 };
 
-const ProfileData = ({ profile, goToEditMode, isOwner}) => {
+const ProfileData = ({ profile, goToEditMode, isOwner }) => {
     return (
         <div>
-            {isOwner && <div><button onClick={goToEditMode}>Edit mode</button></div>}
+            {isOwner && (
+                <div>
+                    <button onClick={goToEditMode}>Edit mode</button>
+                </div>
+            )}
             <div>
                 <b>ФИО </b>: {profile.fullName}
             </div>
@@ -92,8 +111,6 @@ const ProfileData = ({ profile, goToEditMode, isOwner}) => {
         </div>
     );
 };
-
-
 
 const AddNewPostForm = (props) => {
     return (
